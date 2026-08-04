@@ -1,0 +1,51 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  rust:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: clippy, rustfmt
+      - run: cargo fmt --check
+      - run: cargo clippy --all-targets --all-features -- -D warnings
+      - run: cargo test --all-targets --all-features
+      - run: cargo build --release
+
+  site:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install ShellCheck
+        run: sudo apt-get update && sudo apt-get install --yes shellcheck
+      - name: Check installer
+        run: |
+          shellcheck site/install
+          sh -n site/install
+          test "$(git ls-files -s site/install | awk '{print $1}')" = 100755
+          grep -F 'ec-linux-x86_64' site/install
+          grep -F 'ec-linux-aarch64' site/install
+          grep -F 'SHA256SUMS' site/install
+          grep -F '  ec setup' site/install
+          test -f site/install
+          test "${INSTALL##*.}" = "$INSTALL"
+        env:
+          INSTALL: site/install
+      - name: Check site
+        run: |
+          if grep -ER 'ec test|ec config|burst|foreground|--cps|--background|--verbose|manual device' site; then
+            echo 'Removed EC syntax found in site/' >&2
+            exit 1
+          fi
+          grep -F '<link rel="stylesheet" href="style.css">' site/index.html
+          grep -F '<code id="command-setup">ec setup</code>' site/index.html
+          node --check site/copy.js
+          grep -F '<script src="copy.js" defer></script>' site/index.html

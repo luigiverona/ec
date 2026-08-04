@@ -1,0 +1,67 @@
+#!/bin/sh
+
+set -eu
+
+error() {
+    printf 'Error: %s\n' "$*" >&2
+    exit 1
+}
+
+[ "$#" -eq 0 ] || error "this installer takes no arguments"
+[ -n "${HOME:-}" ] || error "HOME is unset or empty"
+
+for tool in uname curl mktemp awk sha256sum mkdir chmod mv cp rm; do
+    command -v "$tool" >/dev/null 2>&1 || error "required tool not found: $tool"
+done
+
+[ "$(uname -s)" = "Linux" ] || error "unsupported operating system; EC supports Linux only"
+
+case "$(uname -m)" in
+    x86_64|amd64) asset=ec-linux-x86_64 ;;
+    aarch64|arm64) asset=ec-linux-aarch64 ;;
+    *) error "unsupported architecture: $(uname -m); expected x86_64 or aarch64" ;;
+esac
+
+base=https://github.com/luigiverona/ec/releases/latest/download
+work=$(mktemp -d) || error "could not create a temporary directory"
+stage=
+cleanup() {
+    [ -z "$stage" ] || rm -f "$stage"
+    rm -rf "$work"
+}
+trap cleanup EXIT HUP INT TERM
+
+binary="$work/$asset"
+sums="$work/SHA256SUMS"
+check="$work/check"
+
+printf 'Downloading EC...\n'
+curl --proto '=https' --tlsv1.2 -fL --retry 3 --retry-delay 1 --retry-max-time 20 \
+    -o "$binary" "$base/$asset" || error "failed to download $asset"
+curl --proto '=https' --tlsv1.2 -fL --retry 3 --retry-delay 1 --retry-max-time 20 \
+    -o "$sums" "$base/SHA256SUMS" || error "failed to download SHA256SUMS"
+[ -s "$binary" ] || error "downloaded binary is empty"
+[ -s "$sums" ] || error "downloaded checksum file is empty"
+
+awk -v name="$asset" '
+    NF == 2 && $2 == name { count++; line = $0 }
+    END { if (count != 1) exit 1; print line }
+' "$sums" >"$check" || error "expected checksum is missing or duplicated"
+
+printf 'Verifying checksum...\n'
+(cd "$work" && sha256sum -c check >/dev/null) || error "checksum verification failed"
+
+destination="$HOME/.local/bin"
+mkdir -p "$destination" || error "could not create $destination"
+stage=$(mktemp "$destination/.ec.XXXXXX") || error "could not create installation file"
+cp "$binary" "$stage" || error "could not stage EC"
+chmod 0755 "$stage" || error "could not set executable permissions"
+mv -f "$stage" "$destination/ec" || error "could not install EC"
+stage=
+
+printf '\nEC installed.\n\nNext:\n  ec setup\n  ec doctor\n  ec start\n'
+
+case ":${PATH:-}:" in
+    *:"$destination":*) ;;
+    *) printf '\nAdd this directory to PATH:\n\n  %s\n' "$destination" ;;
+esac

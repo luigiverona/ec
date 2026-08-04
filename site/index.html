@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="EC is a terminal mouse click controller for Linux and Wayland.">
+  <meta property="og:title" content="EC">
+  <meta property="og:description" content="A terminal mouse click controller for Linux and Wayland.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://ec.luigiverona.dev/">
+  <link rel="canonical" href="https://ec.luigiverona.dev/">
+  <link rel="stylesheet" href="style.css">
+  <script src="copy.js" defer></script>
+  <title>EC — terminal mouse click controller</title>
+</head>
+<body>
+  <main>
+    <header class="intro">
+      <h1>EC</h1>
+      <p>A terminal mouse click controller for Linux and Wayland.</p>
+    </header>
+
+    <section class="install">
+      <h2>Install</h2>
+      <div class="command-field">
+        <pre><code id="install-command">curl -fsSL https://ec.luigiverona.dev/install | sh</code></pre>
+        <button
+          type="button"
+          class="copy-button"
+          data-copy-target="install-command"
+          data-state="idle"
+          aria-label="Copy install command"
+          aria-live="polite"
+        >
+          <svg class="icon icon-copy" aria-hidden="true" viewBox="0 0 16 16">
+            <rect x="5.5" y="1.5" width="9" height="9" rx="1.5"></rect>
+            <rect x="1.5" y="5.5" width="9" height="9" rx="1.5"></rect>
+          </svg>
+          <svg class="icon icon-check" aria-hidden="true" viewBox="0 0 16 16">
+            <path d="m3 8.5 3 3 7-7"></path>
+          </svg>
+        </button>
+      </div>
+      <p class="note"><a href="https://ec.luigiverona.dev/install">Inspect the script</a> before running it.</p>
+      <p class="note">After installation, run <code>ec setup</code>.</p>
+    </section>
+
+    <section class="usage">
+      <h2>Usage</h2>
+      <dl>
+        <div>
+          <dt>
+            <code id="command-setup">ec setup</code>
+            <button type="button" class="copy-button" data-copy-target="command-setup" data-state="idle" aria-label="Copy ec setup command" aria-live="polite">
+              <svg class="icon icon-copy" aria-hidden="true" viewBox="0 0 16 16">
+                <rect x="5.5" y="1.5" width="9" height="9" rx="1.5"></rect>
+                <rect x="1.5" y="5.5" width="9" height="9" rx="1.5"></rect>
+              </svg>
+              <svg class="icon icon-check" aria-hidden="true" viewBox="0 0 16 16">
+                <path d="m3 8.5 3 3 7-7"></path>
+              </svg>
+            </button>
+          </dt>
+          <dd>Configure device access and select a mouse.</dd>
+        </div>
+        <div>
+          <dt>
+            <code id="command-doctor">ec doctor</code>
+            <button type="button" class="copy-button" data-copy-target="command-doctor" data-state="idle" aria-label="Copy ec doctor command" aria-live="polite">
+              <svg class="icon icon-copy" aria-hidden="true" viewBox="0 0 16 16">
+                <rect x="5.5" y="1.5" width="9" height="9" rx="1.5"></rect>
+                <rect x="1.5" y="5.5" width="9" height="9" rx="1.5"></rect>
+              </svg>
+              <svg class="icon icon-check" aria-hidden="true" viewBox="0 0 16 16">
+                <path d="m3 8.5 3 3 7-7"></path>
+              </svg>
+            </button>
+          </dt>
+          <dd>Check system readiness.</dd>
+        </div>
+        <div>
+          <dt>
+            <code id="command-start">ec start</code>
+            <button type="button" class="copy-button" data-copy-target="command-start" data-state="idle" aria-label="Copy ec start command" aria-live="polite">
+              <svg class="icon icon-copy" aria-hidden="true" viewBox="0 0 16 16">
+                <rect x="5.5" y="1.5" width="9" height="9" rx="1.5"></rect>
+                <rect x="1.5" y="5.5" width="9" height="9" rx="1.5"></rect>
+              </svg>
+              <svg class="icon icon-check" aria-hidden="true" viewBox="0 0 16 16">
+                <path d="m3 8.5 3 3 7-7"></path>
+              </svg>
+            </button>
+          </dt>
+          <dd>Start at the default 20 CPS.</dd>
+        </div>
+        <div>
+          <dt>
+            <code id="command-rate">ec 100</code>
+            <button type="button" class="copy-button" data-copy-target="command-rate" data-state="idle" aria-label="Copy ec 100 command" aria-live="polite">
+              <svg class="icon icon-copy" aria-hidden="true" viewBox="0 0 16 16">
+                <rect x="5.5" y="1.5" width="9" height="9" rx="1.5"></rect>
+                <rect x="1.5" y="5.5" width="9" height="9" rx="1.5"></rect>
+              </svg>
+              <svg class="icon icon-check" aria-hidden="true" viewBox="0 0 16 16">
+                <path d="m3 8.5 3 3 7-7"></path>
+              </svg>
+            </button>
+          </dt>
+          <dd>Start at a custom rate from 1 to 600 CPS.</dd>
+        </div>
+        <div>
+          <dt>
+            <code id="command-status">ec status</code>
+            <button type="button" class="copy-button" data-copy-target="command-status" data-state="idle" aria-label="Copy ec status command" aria-live="polite">
+              <svg class="icon icon-copy" aria-hidden="true" viewBox="0 0 16 16">
+                <rect x="5.5" y="1.5" width="9" height="9" rx="1.5"></rect>
+                <rect x="1.5" y="5.5" width="9" height="9" rx="1.5"></rect>
+              </svg>
+              <svg class="icon icon-check" aria-hidden="true" viewBox="0 0 16 16">
+                <path d="m3 8.5 3 3 7-7"></path>
+              </svg>
+            </button>
+          </dt>
+          <dd>Show the current state.</dd>
+        </div>
+        <div>
+          <dt>
+            <code id="command-stop">ec stop</code>
+            <button type="button" class="copy-button" data-copy-target="command-stop" data-state="idle" aria-label="Copy ec stop command" aria-live="polite">
+              <svg class="icon icon-copy" aria-hidden="true" viewBox="0 0 16 16">
+                <rect x="5.5" y="1.5" width="9" height="9" rx="1.5"></rect>
+                <rect x="1.5" y="5.5" width="9" height="9" rx="1.5"></rect>
+              </svg>
+              <svg class="icon icon-check" aria-hidden="true" viewBox="0 0 16 16">
+                <path d="m3 8.5 3 3 7-7"></path>
+              </svg>
+            </button>
+          </dt>
+          <dd>Stop EC.</dd>
+        </div>
+      </dl>
+    </section>
+
+    <section class="details">
+      <h2>Requirements</h2>
+      <ul>
+        <li>Linux</li>
+        <li>x86_64 or aarch64</li>
+        <li>evdev/uinput access</li>
+        <li>Wayland supported, including Hyprland</li>
+      </ul>
+      <p class="warning">Synthetic clicking may violate game or service rules.</p>
+    </section>
+  </main>
+
+  <footer>
+    <a href="https://github.com/luigiverona/ec">Source on GitHub</a>
+  </footer>
+</body>
+</html>

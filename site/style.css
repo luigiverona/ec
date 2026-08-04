@@ -1,0 +1,292 @@
+:root {
+  color-scheme: light dark;
+  --canvas: #f2f5fa;
+  --surface: #fbfcfe;
+  --text: #182238;
+  --muted: #5d687d;
+  --accent: #315fc5;
+  --accent-soft: #e7edfb;
+  --command: #17243d;
+  --command-text: #f2f6ff;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: var(--canvas);
+  color: var(--text);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 3rem 1.5rem;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+main,
+footer {
+  width: min(100%, 44rem);
+  margin-inline: auto;
+}
+
+main {
+  padding: clamp(2.5rem, 7vw, 4.5rem);
+  border-radius: 1.25rem;
+  background: var(--surface);
+}
+
+.intro {
+  max-width: 34rem;
+  margin-inline: auto;
+  text-align: center;
+}
+
+h1 {
+  margin: 0;
+  color: var(--accent);
+  font-size: clamp(3rem, 10vw, 4.5rem);
+  line-height: 0.95;
+  letter-spacing: -0.055em;
+}
+
+.intro p {
+  margin: 1.25rem 0 0;
+  color: var(--muted);
+  font-size: clamp(1.05rem, 3vw, 1.2rem);
+}
+
+section {
+  margin-block-start: 3.5rem;
+}
+
+h2 {
+  margin: 0 0 1rem;
+  font-size: 1rem;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+}
+
+.install h2 {
+  text-align: center;
+}
+
+.command-field {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  overflow: hidden;
+  border-radius: 0.4rem;
+  background: var(--command);
+}
+
+pre {
+  overflow-x: auto;
+  margin: 0;
+  padding: 1.1rem 0.75rem 1.1rem 1rem;
+  color: var(--command-text);
+  font-size: 0.9rem;
+}
+
+code {
+  font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+}
+
+.note {
+  margin: 0.8rem 0 0;
+  color: var(--muted);
+  font-size: 0.9375rem;
+  text-align: center;
+}
+
+a {
+  color: var(--accent);
+  text-underline-offset: 0.2em;
+}
+
+a:hover {
+  text-decoration-thickness: 0.12em;
+}
+
+a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 0.15rem;
+}
+
+.copy-button {
+  all: unset;
+  box-sizing: border-box;
+  display: none;
+  place-items: center;
+  inline-size: 2.25rem;
+  block-size: 2.25rem;
+  padding: 0.45rem;
+  border-radius: 0.35rem;
+  background: var(--surface);
+  color: var(--accent);
+  cursor: pointer;
+}
+
+.copy-enabled .copy-button {
+  display: inline-grid;
+}
+
+.icon {
+  inline-size: 1rem;
+  block-size: 1rem;
+  fill: none;
+  stroke: currentcolor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.icon-check {
+  display: none;
+}
+
+.copy-button[data-state="copied"] .icon-copy {
+  display: none;
+}
+
+.copy-button[data-state="copied"] .icon-check {
+  display: block;
+}
+
+.copy-button:hover {
+  background: var(--accent-soft);
+}
+
+.copy-button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.copy-button:active {
+  translate: 0 1px;
+}
+
+.copy-button[data-state="copied"],
+.copy-button[data-state="selected"] {
+  background: var(--accent-soft);
+}
+
+.command-field .copy-button {
+  align-self: center;
+  margin-inline-end: 0.5rem;
+  background: var(--command);
+  color: var(--command-text);
+}
+
+.command-field .copy-button:hover,
+.command-field .copy-button[data-state="copied"],
+.command-field .copy-button[data-state="selected"] {
+  background: var(--accent);
+  color: var(--surface);
+}
+
+dl {
+  margin: 0;
+}
+
+dl div {
+  display: grid;
+  grid-template-columns: 8rem 1fr;
+  gap: 1rem;
+  padding-block: 0.85rem;
+}
+
+.copy-enabled dl div {
+  grid-template-columns: 8.75rem 1fr;
+}
+
+dt {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  color: var(--accent);
+  font-weight: 650;
+}
+
+dt code {
+  white-space: nowrap;
+}
+
+dd {
+  margin: 0;
+  color: var(--muted);
+}
+
+.details {
+  padding: 1.25rem 1.4rem;
+  border-radius: 0.6rem;
+  background: var(--accent-soft);
+  color: var(--muted);
+  font-size: 0.9375rem;
+}
+
+.details h2 {
+  color: var(--text);
+}
+
+ul {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.25rem 1.5rem;
+  margin: 0;
+  padding-inline-start: 1.2rem;
+}
+
+.warning {
+  margin: 1.25rem 0 0;
+  padding-block-start: 1rem;
+}
+
+footer {
+  padding-block: 1.5rem 0;
+  text-align: center;
+  font-size: 0.9375rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --canvas: #0f1625;
+    --surface: #151e30;
+    --text: #edf2fb;
+    --muted: #aeb8cb;
+    --accent: #84a8ff;
+    --accent-soft: #1c2b49;
+    --command: #0a1020;
+    --command-text: #f1f5ff;
+  }
+}
+
+@media (max-width: 36rem) {
+  body {
+    padding: 0;
+  }
+
+  main {
+    padding: 3rem 1.25rem;
+    border-radius: 0;
+  }
+
+  section {
+    margin-block-start: 3rem;
+  }
+
+  dl div,
+  .copy-enabled dl div {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.25rem;
+  }
+
+  ul {
+    grid-template-columns: 1fr;
+  }
+
+  footer {
+    padding-block-end: 2rem;
+  }
+}
